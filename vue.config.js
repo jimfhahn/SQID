@@ -1,13 +1,13 @@
 module.exports = {
-  publicPath: (process.env.NODE_ENV === 'production'
-               ? '/sqid/sqid-ng/'
-               : '/'),
+  devServer: {
+    disableHostCheck: true,
+  },
   pluginOptions: {
     i18n: {
-      locale: 'en',
-      fallbackLocale: 'en',
-      localeDir: 'locales',
-      enableInSFC: false
-    }
-  }
-}
+      locale: "en",
+      fallbackLocale: "en",
+      localeDir: "assets/locales",
+      enableInSFC: false,
+    },
+  },
+};
