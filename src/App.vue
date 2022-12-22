@@ -1,8 +1,6 @@
 <template>
 <div id="app">
-  <app-navbar/>
   <router-view/>
-  <app-footer/>
 </div>
 </template>
 
@@ -37,6 +35,7 @@ import SqidImage from '@/components/SqidImage.vue'
 import SqidBars from '@/components/SqidBars.vue'
 import SqidCollapseButton from '@/components/SqidCollapseButton.vue'
 import SqidCollapsibleCard from '@/components/SqidCollapsibleCard.vue'
+
 
 Vue.component('entity-link', EntityLink)
 Vue.component('snak', Snak)

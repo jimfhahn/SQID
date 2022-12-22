@@ -13,7 +13,6 @@ dependencies:
   nprogress: 0.2.0
   parsimmon: 1.18.1
   vue: 2.7.14
-  vue-bootstrap-typeahead: 0.2.6
   vue-class-component: 7.2.6
   vue-i18n: 8.28.2
   vue-property-decorator: 8.5.1
@@ -9644,10 +9643,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
-  /resize-observer-polyfill/1.5.1:
-    dev: false
-    resolution:
-      integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
   /resolve-cwd/2.0.0:
     dependencies:
       resolve-from: 3.0.0
@@ -11258,14 +11253,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-obtSWTlbJ+a+TFRYGaUumtVwb+InIUVI0Lu0VBUAPmj2cU5JutEXg3xUE0c2J5Tcy7h2DEKVJBFi+Y9ZSFzzPQ==
-  /vue-bootstrap-typeahead/0.2.6:
-    dependencies:
-      resize-observer-polyfill: 1.5.1
-      vue: 2.7.14
-    deprecated: 'Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.'
-    dev: false
-    resolution:
-      integrity: sha512-BcUAnvfN+PS0StL6E3endd37P7HUt9otk+8m7tsa2gkt2I2KY8O2Dma49oR8ie8iletvJAlAqpN+klF6ktPULQ==
   /vue-class-component/7.2.6:
     dev: false
     peerDependencies:
@@ -11910,7 +11897,6 @@ specifiers:
   typescript: ^3.9.7
   typescript-tslint-plugin: ^0.5.5
   vue: ^2.6.11
-  vue-bootstrap-typeahead: ^0.2.6
   vue-class-component: ^7.2.3
   vue-cli-plugin-bootstrap-vue: ^0.4.0
   vue-cli-plugin-i18n: ^0.6.1

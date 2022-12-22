@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Model, Watch, Vue } from 'vue-property-decorator'
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+//import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 import _ from 'lodash'
 
 import router from '@/router'
@@ -31,9 +31,9 @@ import { searchEntities } from '@/api/wikidata'
 const TYPEAHEAD_WORKAROUND_REGEX = /^(.*): : (.*) \( \((.*)\) \)$/
 
 @Component({
-  components: {
-    VueBootstrapTypeahead,
-  },
+//  components: {
+//    VueBootstrapTypeahead,
+//  },
 })
 export default class AppNavbarSearchBox extends Vue {
   private entitySearch: string = ''

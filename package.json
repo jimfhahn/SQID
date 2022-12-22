@@ -23,7 +23,6 @@
     "nprogress": "^0.2.0",
     "parsimmon": "^1.18.1",
     "vue": "^2.6.11",
-    "vue-bootstrap-typeahead": "^0.2.6",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.27.0",
     "vue-property-decorator": "^8.5.1",
