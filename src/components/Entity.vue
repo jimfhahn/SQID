@@ -5,61 +5,15 @@
         <sqid-image :file="banner" width="850" />
       </div>
       <h1><span>{{ label }}</span>
-        &nbsp;<small>(<a :href="wikidata">{{ entityId }}</a>)</small></h1>
+      </h1>
       <div id="aliases">
         <ul class="list-inline">
           <li class="list-inline-item" v-for="alias in aliases" :key="alias.value">{{ alias }}</li>
         </ul>
       </div>
-      <div id="description">{{ description }}</div>
-      <div id="hierarchy-information">
-        <i18n tag="div" path="entity.propertyDatatype" v-if="propertyDatatype">
-          <b place="label" v-t="'entity.propertyDatatypeLabel'" />
-          <span place="type">{{ propertyDatatype }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.superProperties" v-if="superProperties.length">
-          <b place="subpropertyOf"><entity-link entityId="P1647" /></b>
-          <span place="property">{{ label }}</span>
-          <ul place="properties" class="comma-separated">
-            <li v-for="(superProperty, supidx) of superProperties" :key="supidx">
-              <entity-link :entityId="superProperty.value.id" />
-              <sqid-qualifier-icon :claim="superProperty" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noSuperProperties" v-else-if="kind === 'property'">
-          <b place="subpropertyOf"><entity-link entityId="P1647" /></b>
-          <span place="property">{{ label }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.superClasses" v-if="superClasses.length">
-          <b place="subclassOf"><entity-link entityId="P279" /></b>
-          <span place="class">{{ label }}</span>
-          <ul place="classes" class="comma-separated" >
-            <li v-for="(superClass, sucidx) of superClasses" :key="sucidx">
-              <entity-link :entityId="superClass.value.id" />
-              <sqid-qualifier-icon :claim="superClass" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noSuperClasses" v-else-if="hierarchyStatistics.directSubclasses">
-          <b place="subclassOf"><entity-link entityId="P279" /></b>
-          <span place="class">{{ label }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.instanceClasses" v-if="instanceClasses.length">
-          <b place="instanceOf"><entity-link entityId="P31" /></b>
-          <span place="instance">{{ label }}</span>
-          <ul place="classes" class="comma-separated">
-            <li v-for="(instanceClass, incidx) of instanceClasses" :key="incidx">
-              <entity-link :entityId="instanceClass.value.id" />
-              <sqid-qualifier-icon :claim="instanceClass" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noInstanceClasses" v-else>
-          <b place="instanceOf"><entity-link entityId="P31" /></b>
-          <span place="instance">{{ label }}</span>
-        </i18n>
-      </div>
+      <div>
+        
+  </div>
       <sqid-collapsible-card v-if="kind === 'property'"
                              :header="$t('entity.propertyUsage')"
                              id="property-usage">
