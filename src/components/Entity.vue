@@ -11,9 +11,7 @@
           <li class="list-inline-item" v-for="alias in aliases" :key="alias.value">{{ alias }}</li>
         </ul>
       </div>
-      <div>
-        
-  </div>
+      <div id="description">{{ description }}</div>
       <sqid-collapsible-card v-if="kind === 'property'"
                              :header="$t('entity.propertyUsage')"
                              id="property-usage">
@@ -241,7 +239,7 @@
           <table class="table table-striped table-sm narrow">
             <tbody>
               <tr v-for="(link, lidx) in links" :key="lidx">
-                <th><a :href="link.url">{{ link.label }}</a></th>
+                <th><a :href="link.url"  target="_blank">{{ link.label }}</a></th>
               </tr>
             </tbody>
           </table>
