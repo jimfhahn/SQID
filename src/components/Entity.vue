@@ -4,8 +4,7 @@
       <div v-if="banner" style="overflow: hidden;">
         <sqid-image :file="banner" width="850" />
       </div>
-      <h1><span>{{ label }}</span>
-        &nbsp;<small>(<a :href="wikidata">{{ entityId }}</a>)</small></h1>
+      <h1><span>{{ label }}</span></h1>
       <div id="aliases">
         <ul class="list-inline">
           <li class="list-inline-item" v-for="alias in aliases" :key="alias.value">{{ alias }}</li>
@@ -22,7 +21,7 @@
           <table class="table table-striped table-sm narrow">
             <tbody>
               <tr v-for="(link, lidx) in links" :key="lidx">
-                <th><a :href="link.url">{{ link.label }}</a></th>
+                <th><a :href="link.url" target="_blank">{{ link.label }}</a></th>
               </tr>
             </tbody>
           </table>
