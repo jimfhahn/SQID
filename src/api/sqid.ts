@@ -17,7 +17,7 @@ export const MAX_EXAMPLE_VALUSE = 20
 
 const MAX_STATISTICS_AGE = 60 * 60 * 1000
 const SCRIPT_RUNTIME_SLACK = 5 * 60 * 1000
-const endpoint = 'https://tools-static.wmflabs.org/sqid/data'
+const endpoint = 'http://localhost:8080/sqid/data'
 
 function getDataFileURI(name: string, timestamp: number): string {
   return `${endpoint}/${name}.json?ts=${timestamp}`

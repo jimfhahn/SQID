@@ -28,8 +28,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
-import AppNavbar from '@/components/AppNavbar.vue'
-import AppFooter from '@/components/AppFooter.vue'
+//import AppNavbar from '@/components/AppNavbar.vue'
+//import AppFooter from '@/components/AppFooter.vue'
 import EntityLink from '@/components/EntityLink.vue'
 import Snak from '@/components/Snak.vue'
 import DataValue from '@/components/DataValue.vue'
@@ -48,8 +48,8 @@ Vue.component('sqid-collapsible-card', SqidCollapsibleCard)
 
 @Component({
   components: {
-    'app-navbar': AppNavbar,
-    'app-footer': AppFooter,
+    //'app-navbar': AppNavbar,
+    //'app-footer': AppFooter,
   }})
 export default class App extends Vue {
   @Action private loadTranslation!: (lang: string) => void

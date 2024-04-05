@@ -12,273 +12,8 @@
         </ul>
       </div>
       <div id="description">{{ description }}</div>
-      <div id="hierarchy-information">
-        <i18n tag="div" path="entity.propertyDatatype" v-if="propertyDatatype">
-          <b place="label" v-t="'entity.propertyDatatypeLabel'" />
-          <span place="type">{{ propertyDatatype }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.superProperties" v-if="superProperties.length">
-          <b place="subpropertyOf"><entity-link entityId="P1647" /></b>
-          <span place="property">{{ label }}</span>
-          <ul place="properties" class="comma-separated">
-            <li v-for="(superProperty, supidx) of superProperties" :key="supidx">
-              <entity-link :entityId="superProperty.value.id" />
-              <sqid-qualifier-icon :claim="superProperty" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noSuperProperties" v-else-if="kind === 'property'">
-          <b place="subpropertyOf"><entity-link entityId="P1647" /></b>
-          <span place="property">{{ label }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.superClasses" v-if="superClasses.length">
-          <b place="subclassOf"><entity-link entityId="P279" /></b>
-          <span place="class">{{ label }}</span>
-          <ul place="classes" class="comma-separated" >
-            <li v-for="(superClass, sucidx) of superClasses" :key="sucidx">
-              <entity-link :entityId="superClass.value.id" />
-              <sqid-qualifier-icon :claim="superClass" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noSuperClasses" v-else-if="hierarchyStatistics.directSubclasses">
-          <b place="subclassOf"><entity-link entityId="P279" /></b>
-          <span place="class">{{ label }}</span>
-        </i18n>
-        <i18n tag="div" path="entity.instanceClasses" v-if="instanceClasses.length">
-          <b place="instanceOf"><entity-link entityId="P31" /></b>
-          <span place="instance">{{ label }}</span>
-          <ul place="classes" class="comma-separated">
-            <li v-for="(instanceClass, incidx) of instanceClasses" :key="incidx">
-              <entity-link :entityId="instanceClass.value.id" />
-              <sqid-qualifier-icon :claim="instanceClass" />
-            </li>
-          </ul>
-        </i18n>
-        <i18n tag="div" path="entity.noInstanceClasses" v-else>
-          <b place="instanceOf"><entity-link entityId="P31" /></b>
-          <span place="instance">{{ label }}</span>
-        </i18n>
-      </div>
-      <sqid-collapsible-card v-if="kind === 'property'"
-                             :header="$t('entity.propertyUsage')"
-                             id="property-usage">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <th v-t="'entity.propertyEntities'"
-                  v-b-tooltip
-                  :title="$t('entity.propertyEntitiesDescription')" />
-              <td>{{ propertyUsage.items }}
-                <div class="four-lines">
-                  <ul class="comma-separated">
-                    <li v-for="(example, exidx) of exampleItems" :key="exidx">
-                      <entity-link :entityId="example" />
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyValues'"
-                  v-b-tooltip
-                  :title="$t('entity.propertyValuesDescription')" />
-              <td>
-                <ul class="comma-separated">
-                  <li v-for="(exampleValue, exvidx) of exampleValues" :key="exvidx">
-                    <entity-link :entityId="exampleValue" />
-                  </li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyTypicalProperties'"
-                  v-b-tooltip
-                  :title="$t('entity.propertyTypicalPropertiesDescription')" />
-              <td>
-                <div class="four-lines">
-                  <ul class="comma-separated">
-                    <li v-for="(typicalProperty, typpidx) of typicalProperties" :key="typpidx">
-                      <entity-link :entityId="typicalProperty" />
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyStatements'"
-                  v-b-tooltip
-                  :title="$t('entity.propertyStatementsDescription')" />
-              <td><i18n path="entity.propertyStatementsValue">
-                  <span place="count">{{ propertyUsage.statements }}</span>
-                  <span place="average">{{ averagePropertyStatements }}</span>
-                </i18n>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyQualifiers'"
-                  v-b-tooltip
-                  :title="$t('entity.propertyQualifiersDescription')" />
-              <td>
-                <div class="four-lines">
-                  <ul class="comma-separated">
-                    <li v-for="(qualifier, pqidx) of propertyUsage.qualifiers" :key="pqidx">
-                      <entity-link :entityId="qualifier[0]" />
-                      <b-badge>{{ qualifier[1] }}</b-badge>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyAsQualifier'" />
-              <td>{{ propertyUsage.inQualifiers }}</td>
-            </tr>
-            <tr>
-              <th v-t="'entity.propertyInReference'" />
-              <td>{{ propertyUsage.inReferences }}</td>
-            </tr>
-          </tbody>
-        </table>
+      
       </sqid-collapsible-card>
-      <sqid-collapsible-card v-if="hierarchyStatistics.directInstances || hierarchyStatistics.allInstances"
-                             :header="$t('entity.instances')"
-                             id="hierarchy-instances">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <th v-t="'entity.directInstances'" />
-              <td>{{ hierarchyStatistics.directInstances }}
-                <div class="four-lines" v-if="hierarchyStatistics.directInstances">
-                  <ul class="comma-separated">
-                    <li v-for="(exInstId, eiidx) of exampleInstances" :key="eiidx">
-                      <entity-link :entityId="exInstId" />
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.allInstances'"
-                  v-b-tooltip
-                  :title="$t('entity.allInstancesDescription', { num: hierarchyStatistics.allSubclasses })" />
-              <td>{{ hierarchyStatistics.allInstances }}</td>
-            </tr>
-            <tr>
-              <th v-t="'entity.classTypicalProperties'"
-                  v-b-tooltip
-                  :title="$t('entity.classTypicalPropertiesDescription')" />
-              <td><div class="four-lines">
-                  <ul class="comma-separated">
-                    <li v-for="(relatedId, relidx) of hierarchyStatistics.relatedProperties" :key="relidx">
-                      <entity-link :entityId="relatedId" />
-                    </li>
-                  </ul>
-              </div></td>
-            </tr>
-          </tbody>
-        </table>
-      </sqid-collapsible-card>
-      <sqid-collapsible-card v-if="hierarchyStatistics.directSubclasses || hierarchyStatistics.superClasses.length"
-                             :header="$t('entity.classification')"
-                             id="hierarchy-classification">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <th v-t="'entity.directSuperclasses'" />
-              <td v-if="superClasses.length">
-                <ul class="comma-separated">
-                  <li v-for="(superClass, supcidx) of superClasses" :key="supcidx">
-                    <entity-link :entityId="superClass.value.id" />
-                    <sqid-qualifier-icon :claim="superClass" />
-                    <b-badge>{{ superClassesUsage.get(superClass.value.id) }}</b-badge>
-                  </li>
-                </ul>
-              </td>
-              <td v-else v-t="'entity.noDirectSuperclasses'" />
-            </tr>
-            <tr>
-              <th v-t="'entity.directSubclasses'" />
-              <td>
-                <b-tabs>
-                  <b-tab>
-                    <template v-slot:title>
-                      <i18n path="entity.directSubclassesInstances"
-                            v-b-tooltip="$t('entity.directSubclassesInstancesDescription')">
-                        <b-badge place="count">{{ Object.keys(subclassesInstances).length }}</b-badge>
-                      </i18n>
-                    </template>
-                    <ul class="comma-separated">
-                      <li v-for="(subClass, dsciidx) of sortedSubclassesInstances" :key="dsciidx">
-                        <entity-link :entityId="subClass.id" />
-                        <b-badge>{{ subClass.count }}</b-badge>
-                      </li>
-                    </ul>
-                  </b-tab>
-                  <b-tab>
-                    <template v-slot:title>
-                      <i18n path="entity.directSubclassesSubclasses"
-                            v-b-tooltip="$t('entity.directSubclassesSubclassesDescription')">
-                        <b-badge place="count">{{ Object.keys(subclassesSubclasses).length }}</b-badge>
-                      </i18n>
-                    </template>
-                    <ul class="comma-separated">
-                      <li v-for="(subClass, dscsidx) of sortedSubclassesSubclasses" :key="dscsidx">
-                        <entity-link :entityId="subClass.id" />
-                        <b-badge>{{ subClass.count }}</b-badge>
-                      </li>
-                    </ul>
-                  </b-tab>
-                  <b-tab>
-                    <template v-slot:title>
-                      <i18n path="entity.directSubclassesAll">
-                        <b-badge place="count">{{ hierarchyStatistics.directSubclasses }}</b-badge>
-                      </i18n>
-                    </template>
-                    <ul class="comma-separated">
-                      <li v-for="(subClass, dscaidx) of exampleSubclasses" :key="dscaidx">
-                        <entity-link :entityId="subClass" />
-                      </li>
-                    </ul>
-                  </b-tab>
-                </b-tabs>
-              </td>
-            </tr>
-            <tr>
-              <th v-t="'entity.allSubclasses'"
-                  v-b-tooltip
-                  :title="$t('entity.allSubclassesDescription')" />
-              <td>{{ hierarchyStatistics.allSubclasses }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </sqid-collapsible-card>
-      <div id="claims" v-if="groupedClaims">
-        <claim-table :header="$t('entity.humanRelationshipStatements')"
-                     :entityId="entityId"
-                     :claims="group('f')"
-                     :reverseClaims="reverseGroup('f')"
-                     id="family"
-                     v-if="showGroup('f')" />
-        <claim-table :header="$t('entity.statements')"
-                     :entityId="entityId"
-                     :claims="group('o')"
-                     :reverseClaims="reverseGroup('o')"
-                     id="statements"
-                     v-if="showGroup('o')" />
-        <claim-table :header="$t('entity.mediaStatements')"
-                     :entityId="entityId"
-                     :claims="group('m')"
-                     :reverseClaims="reverseGroup('m')"
-                     id="media"
-                     v-if="showGroup('m')" />
-        <claim-table :header="$t('entity.wikiStatements')"
-                     :entityId="entityId"
-                     :claims="group('w')"
-                     :reverseClaims="reverseGroup('w')"
-                     id="wiki"
-                     v-if="showGroup('w')" />
-      </div>
     </template>
     <template v-slot:sidebar>
       <sqid-image :file="images[0]" width="260" v-if="images && images[0]" />
@@ -293,14 +28,7 @@
           </table>
         </b-card-body>
       </sqid-collapsible-card>
-      <div id="claims-ids" v-if="groupedClaims">
-        <claim-table :header="$t('entity.identifierStatements')"
-                     :entityId="entityId"
-                     :claims="group('i')"
-                     id="identifiers"
-                     v-if="showGroup('i')"
-                     narrow />
-      </div>
+      
     </template>
   </sqid-bars>
 </template>
@@ -310,8 +38,8 @@ import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import { Getter, Action, Mutation, namespace } from 'vuex-class'
 import Progress from '@/progress'
 import { ClaimsMap, EntityId } from '@/store/entity/claims/types'
-import { PropertyClassification, PropertyStatistics } from '@/store/statistics/properties/types'
-import { ClassStatistics } from '@/store/statistics/classes/types'
+//import { PropertyClassification, PropertyStatistics } from '@/store/statistics/properties/types'
+//import { ClassStatistics } from '@/store/statistics/classes/types'
 import ClaimTable from './ClaimTable.vue'
 import SqidQualifierIcon from './SqidQualifierIcon.vue'
 import { Claim, EntityKind, QualifiedEntityValue, WBDatatype } from '@/api/types'
@@ -319,8 +47,8 @@ import { relatedEntityIds, parseEntityId, idsFromQualifiedEntity, isPropertyId }
 import { groupClaims, RelatednessMapping, getClassHierarchyChunk, RELATED_PROPERTIES_THRESHOLD } from '@/api/sqid'
 import { i18n } from '@/i18n'
 
-const classStatistics = namespace('statistics/classes')
-const propertyStatistics = namespace('statistics/properties')
+//const classStatistics = namespace('statistics/classes')
+//const propertyStatistics = namespace('statistics/properties')
 
 @Component({
   components: {
@@ -337,14 +65,14 @@ export default class Entity extends Vue {
   @Action private getExampleValues!: (entityId: EntityId) => Promise<EntityId[]>
   @Action private getExampleInstances!: (entityId: EntityId) => Promise<EntityId[]>
   @Action private getExampleSubclasses!: (entityId: EntityId) => Promise<EntityId[]>
-  @classStatistics.Action private getClassHierarchyRecord!: (entityId: EntityId) => Promise<ClassStatistics>
-  @classStatistics.Action private getClassUsageCounts!: (entityIds: EntityId[]) => Promise<Map<EntityId, number>>
-  @classStatistics.Getter private getHierarchyRecord!: (entityId: EntityId) => ClassStatistics
-  @propertyStatistics.Action private refreshRelatedProperties: any
-  @propertyStatistics.Action private refreshClassification: any
-  @propertyStatistics.Action private getUrlPattern: any
-  @propertyStatistics.Action private getPropertyUsage!: (entityId: EntityId) => Promise<PropertyStatistics>
-  @propertyStatistics.Getter private propertyGroups!: (entityId: EntityId) => PropertyClassification
+  //@classStatistics.Action private getClassHierarchyRecord!: (entityId: EntityId) => Promise<ClassStatistics>
+  //@classStatistics.Action private getClassUsageCounts!: (entityIds: EntityId[]) => Promise<Map<EntityId, number>>
+  //@classStatistics.Getter private getHierarchyRecord!: (entityId: EntityId) => ClassStatistics
+//  @propertyStatistics.Action private refreshRelatedProperties: any
+//  @propertyStatistics.Action private refreshClassification: any
+//  @propertyStatistics.Action private getUrlPattern: any
+//  @propertyStatistics.Action private getPropertyUsage!: (entityId: EntityId) => Promise<PropertyStatistics>
+//  @propertyStatistics.Getter private propertyGroups!: (entityId: EntityId) => PropertyClassification
   @Getter private getImages: any
   @Getter private getBanner: any
   @Getter private getHomepage: any
@@ -359,8 +87,8 @@ export default class Entity extends Vue {
   private description: string | null = null
   private claims: ClaimsMap | null = null
   private reverseClaims: ClaimsMap | null = null
-  private groupedClaims: Map<PropertyClassification, ClaimsMap> | null = null
-  private groupedReverseClaims: Map<PropertyClassification, ClaimsMap> | null = null
+  //private groupedClaims: Map<PropertyClassification, ClaimsMap> | null = null
+  //private groupedReverseClaims: Map<PropertyClassification, ClaimsMap> | null = null
   private images: string[] | null = null
   private banner: string | null = null
   private kind: EntityKind | null = null
@@ -376,23 +104,23 @@ export default class Entity extends Vue {
   private exampleValues: EntityId[] = []
   private exampleInstances: EntityId[] = []
   private exampleSubclasses: EntityId[] = []
-  private hierarchyStatistics: ClassStatistics = {
-    directInstances: 0,
-    directSubclasses: 0,
-    allInstances: 0,
-    allSubclasses: 0,
-    superClasses: [],
-    nonemptySubClasses: [],
-    relatedProperties: [],
-  }
-  private propertyUsage: PropertyStatistics = {
-    items: 0,
-    statements: 0,
-    inQualifiers: 0,
-    inReferences: 0,
-    qualifiers: new Map<EntityId, number>(),
-    classes: [],
-  }
+  //private hierarchyStatistics: ClassStatistics = {
+ //   directInstances: 0,
+ //   directSubclasses: 0,
+ //   allInstances: 0,
+ //   allSubclasses: 0,
+ //   superClasses: [],
+ //   nonemptySubClasses: [],
+ //   relatedProperties: [],
+ // }
+ // private propertyUsage: PropertyStatistics = {
+   // items: 0,
+  //  statements: 0,
+  //  inQualifiers: 0,
+  //  inReferences: 0,
+  //  qualifiers: new Map<EntityId, number>(),
+  //  classes: [],
+ // }
 
   private updateEntityData() {
     Progress.start()
@@ -412,115 +140,115 @@ export default class Entity extends Vue {
     this.exampleSubclasses = []
     this.subclassesInstances = {}
     this.subclassesSubclasses = {}
-    this.hierarchyStatistics = {
-      directInstances: 0,
-      directSubclasses: 0,
-      allInstances: 0,
-      allSubclasses: 0,
-      superClasses: [],
-      nonemptySubClasses: [],
-      relatedProperties: [],
-    }
-    this.propertyUsage = {
-      items: 0,
-      statements: 0,
-      inQualifiers: 0,
-      inReferences: 0,
-      qualifiers: new Map<EntityId, number>(),
-      classes: [],
-    }
+   // this.hierarchyStatistics = {
+   //   directInstances: 0,
+   //   directSubclasses: 0,
+   //   allInstances: 0,
+   //   allSubclasses: 0,
+   //   superClasses: [],
+  //    nonemptySubClasses: [],
+  //    relatedProperties: [],
+  //  }
+   // this.propertyUsage = {
+   //   items: 0,
+   //   statements: 0,
+   //   inQualifiers: 0,
+  //    inReferences: 0,
+  //    qualifiers: new Map<EntityId, number>(),
+  //    classes: [],
+  //  }
     this.claims = null
     this.reverseClaims = null
-    this.groupedClaims = null
-    this.groupedReverseClaims = null
+    //this.groupedClaims = null
+    //this.groupedReverseClaims = null
     document.title = `${this.label} – SQID`
 
-    this.getClassHierarchyRecord(this.entityId)
-      .then((record) => {
-        if (record) {
-          this.hierarchyStatistics = record
-          const entityIds = record.superClasses.concat(record.nonemptySubClasses,
-                                                       record.relatedProperties)
-          this.requestLabels({ entityIds })
+    //this.getClassHierarchyRecord(this.entityId)
+    //  .then((record) => {
+    //    if (record) {
+    //      this.hierarchyStatistics = record
+    //      const entityIds = record.superClasses.concat(record.nonemptySubClasses,
+    //                                                   record.relatedProperties)
+    //      this.requestLabels({ entityIds })
 
-          this.getClassUsageCounts(record.nonemptySubClasses).then((usage) => {
-            for (const subclassId of record.nonemptySubClasses) {
-              const instances = usage.get(subclassId)!
-              const subclasses = this.getHierarchyRecord(subclassId).allSubclasses
+     //     this.getClassUsageCounts(record.nonemptySubClasses).then((usage) => {
+      //      for (const subclassId of record.nonemptySubClasses) {
+       //       const instances = usage.get(subclassId)!
+        //      const subclasses = this.getHierarchyRecord(subclassId).allSubclasses
 
-              if (instances) {
-                Vue.set(this.subclassesInstances, subclassId, instances)
-              }
+          //    if (instances) {
+          //      Vue.set(this.subclassesInstances, subclassId, instances)
+            //  }
 
-              if (subclasses) {
-                Vue.set(this.subclassesSubclasses, subclassId, subclasses)
-              }
-            }
-          })
-        }
-      })
+      //        if (subclasses) {
+       //         Vue.set(this.subclassesSubclasses, subclassId, subclasses)
+        //      }
+         //   }
+         // })
+       // }
+      //})
 
-    this.getExampleItems(this.entityId)
-      .then((examples) => {
-        this.exampleItems = examples
-      })
+   // this.getExampleItems(this.entityId)
+   //   .then((examples) => {
+  //      this.exampleItems = examples
+  //    })
 
-    this.getExampleValues(this.entityId)
-      .then((examples) => {
-        this.exampleValues = examples
-      })
+   // this.getExampleValues(this.entityId)
+   //   .then((examples) => {
+   //     this.exampleValues = examples
+   //   })
 
-    this.getExampleInstances(this.entityId)
-      .then((examples) => {
-        this.exampleInstances = examples
-      })
+   // this.getExampleInstances(this.entityId)
+   //   .then((examples) => {
+   //     this.exampleInstances = examples
+   //   })
 
-    this.getExampleSubclasses(this.entityId)
-      .then((examples) => {
-        this.exampleSubclasses = examples
-      })
+    //this.getExampleSubclasses(this.entityId)
+     // .then((examples) => {
+       // this.exampleSubclasses = examples
+     // })
 
-    this.refreshRelatedProperties([this.entityId])
-      .then((data: RelatednessMapping) => {
-        if (!(this.entityId in data)) {
-          return
-        }
+    //this.refreshRelatedProperties([this.entityId])
+    //  .then((data: RelatednessMapping) => {
+    //    if (!(this.entityId in data)) {
+    //      return
+    //    }
 
-        const related = Object.entries(data[this.entityId]).sort((left, right) => {
-          if (left[1] < right[1]) {
-            return 1
-          } else if (left[1] > right[1]) {
-            return -1
-          }
-          return 0
-        })
-        const typical = []
+     //   const related = Object.entries(data[this.entityId]).sort((left, right) => {
+     //     if (left[1] < right[1]) {
+     //       return 1
+    //      } else if (left[1] > right[1]) {
+    //        return -1
+    //      }
+    //      return 0
+    //    })
+    //    const typical = []
 
-        for (const [entityId, score] of related) {
-          if (score > RELATED_PROPERTIES_THRESHOLD) {
-            typical.push(entityId)
-          }
-        }
+   //     for (const [entityId, score] of related) {
+   //       if (score > RELATED_PROPERTIES_THRESHOLD) {
+   //         typical.push(entityId)
+   //       }
+    //    }
 
-        this.requestLabels({ entityIds: typical })
-        this.typicalProperties = typical
-      })
+//        this.requestLabels({ entityIds: typical })
+ //       this.typicalProperties = typical
+ //     })
 
-    this.getPropertyUsage(this.entityId)
-      .then((usage) => {
-        if (usage === undefined) {
-          return
-        }
+//    this.getPropertyUsage(this.entityId)
+//      .then((usage) => {
+//        if (usage === undefined) {
+//          return
+  //      }
 
-        this.propertyUsage = usage
-        const entityIds = ([] as string[]).concat(usage.classes)
+   ////     this.propertyUsage = usage
+   //     const entityIds = ([] as string[]).concat(usage.classes)
 
-        for (const entityId of usage.qualifiers.keys()) {
-          entityIds.push(entityId)
-        }
+ //       for (const entityId of usage.qualifiers.keys()) {
+//          entityIds.push(entityId)
+ //       }
 
-        return this.requestLabels({ entityIds })
-      })
+  //      return this.requestLabels({ entityIds })
+ //     })
 
     const forwardClaims = this.getEntityData(this.entityId)
       .then((data: {
@@ -563,10 +291,11 @@ export default class Entity extends Vue {
 
           const superClasses = (this.getValuesForProperty(this.entityId, 'P279') as QualifiedEntityValue[]) || []
           this.superClasses = superClasses
-          this.getClassUsageCounts(this.superClasses.map((entity) => entity.value.id))
-            .then((counts) => {
-              this.superClassesUsage = counts
-            })
+          //this.getClassUsageCounts(this.superClasses.map((entity) => entity.value.id))
+           // .then((counts) => {
+           //   this.superClassesUsage = counts
+           // }
+            //)
 
           const instanceClasses = (this.getValuesForProperty(this.entityId, 'P31') as QualifiedEntityValue[]) || []
           this.instanceClasses = instanceClasses
@@ -595,9 +324,9 @@ export default class Entity extends Vue {
         this.getPropertyDatatypes(properties)
       })
 
-    Promise.all([forwardClaims,
-                 reverseClaims,
-                 this.refreshClassification()])
+    //Promise.all([forwardClaims,
+    //             reverseClaims,
+     //            this.refreshClassification()])
       .then(() => {
         const properties = []
 
@@ -608,30 +337,30 @@ export default class Entity extends Vue {
         for (const property of this.reverseClaims!.keys()) {
           properties.push(property)
         }
-        return this.refreshRelatedProperties(properties)
-      }).then((scores) => {
-        this.regroupClaims(scores)
+        //return this.refreshRelatedProperties(properties)
+     // }).then((scores) => {
+       // this.regroupClaims(scores)
       }).then(() => Progress.done())
   }
 
-  private regroupClaims(relatednessScores: RelatednessMapping) {
-    if (this.claims) {
-      this.groupedClaims = groupClaims(this.claims,
-                                       this.propertyGroups,
-                                       relatednessScores)
-    }
+  //private regroupClaims(relatednessScores: RelatednessMapping) {
+  //  if (this.claims) {
+      //this.groupedClaims = groupClaims(this.claims,
+      //                                 this.propertyGroups,
+      //                                 relatednessScores)
+    //}
 
-    if (this.reverseClaims) {
-      this.groupedReverseClaims = groupClaims(this.reverseClaims,
-                                              this.propertyGroups,
-                                              relatednessScores)
-    }
-  }
+    //if (this.reverseClaims) {
+     // this.groupedReverseClaims = groupClaims(this.reverseClaims,
+     //                                         this.propertyGroups,
+     //                                         relatednessScores)
+   // }
+ // }
 
   private created() {
     this.onEntityIdChanged()
     this.updateLinks()
-    this.getUrlPattern(this.entityId)
+   // this.getUrlPattern(this.entityId)
   }
 
   @Watch('entityId')
@@ -639,29 +368,29 @@ export default class Entity extends Vue {
     this.updateEntityData()
   }
 
-  private group(kind: PropertyClassification): ClaimsMap {
-    if (this.groupedClaims && this.groupedClaims.has(kind)) {
-      return this.groupedClaims.get(kind)!
-    }
+  //private group(kind: PropertyClassification): ClaimsMap {
+  //  if (this.groupedClaims && this.groupedClaims.has(kind)) {
+  //    return this.groupedClaims.get(kind)!
+  //  }
 
-    return new Map<EntityId, Claim[]>()
-  }
+    //return new Map<EntityId, Claim[]>()
+ // }
 
-  private reverseGroup(kind: PropertyClassification) {
-    if (this.groupedReverseClaims && this.groupedReverseClaims.has(kind)) {
-      return this.groupedReverseClaims.get(kind)!
-    }
+ // private reverseGroup(kind: PropertyClassification) {
+ //   if (this.groupedReverseClaims && this.groupedReverseClaims.has(kind)) {
+ //     return this.groupedReverseClaims.get(kind)!
+ //   }
 
-    return new Map<EntityId, Claim[]>()
-  }
+ //   return new Map<EntityId, Claim[]>()
+ // }
 
-  private showGroup(kind: PropertyClassification) {
-    if (kind === 'i') {
-      return this.group(kind).size > 0
-    }
+//  private showGroup(kind: PropertyClassification) {
+//    if (kind === 'i') {
+//      return this.group(kind).size > 0
+//    }
 
-    return (this.group(kind).size + this.reverseGroup(kind).size) > 0
-  }
+ //   return (this.group(kind).size + this.reverseGroup(kind).size) > 0
+ // }
 
   private get wikidata() {
     return this.getWikidataUrl(this.entityId)
@@ -739,12 +468,12 @@ export default class Entity extends Vue {
     return result.sort(this.compareByCount)
   }
 
-  private get averagePropertyStatements() {
-    const statements = this.propertyUsage.statements
-    const items = this.propertyUsage.items || 1
-
-    return Math.round(100 * statements / items) / 100
-  }
+  //private get averagePropertyStatements() {
+  //  const statements = this.propertyUsage.statements
+  //  const items = this.propertyUsage.items || 1
+//
+ //   return Math.round(100 * statements / items) / 100
+ // }
 }
 </script>
 
