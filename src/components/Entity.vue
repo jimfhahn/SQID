@@ -11,7 +11,7 @@
         </ul>
       </div>
       <div id="description">{{ description }}</div>
-      <sqid-collapsible-card :header="'Works by'" :id="'yourId'" narrow>
+      <sqid-collapsible-card :header="'Selected Works'" :id="'yourId'" narrow>
         <b-card-body>
           <ul>
             <li v-for="(work, index) in works" :key="index" v-if="work.title">
